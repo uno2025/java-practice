@@ -1,0 +1,232 @@
+inportujava.lo.BufferedReader;
+***
+*定数在管理
+publicuclassuCreateSi gu41
+// CDEV】実行用の開発環境用-ambda9 R-
+final private staticustring USEARCH_LAMBDA_HOST = xxxxx
+finaluprivateustaticuStringSEARCH_LAMBDA_URLo= XXXXX
+実行用ユーザ情報
+finaluprivatestatic String SEARCH_LAMBDA_ACCESSKEYU= XXXXX
+final privateustatic StringuSEARCH_
+LAMBDA
+_SECRETKEYU= XXXXX
+********米*************米米*米*米
+* APSサービス共通の定数
+*家术水家米字术术米宋术术宋果东术术术术术宋米*米术米米米术米米术米术生料米米米水米
+finaluprivate static String REGION =u**
+ap-northeaet-1
+Finaluprivate static StringSERVICE_LAMBDA =0*lambda
+米米米
+**』
+〒#******米**#******************
+术半中*来术术家术术术宋宋家宋尔东求牛东术米术术术牛米书米米术米术
+*AWS CloudSearchの定数
+****米米*特色
+//usigv4（AWS認証）情報
+finaluprivateustaticuStringuEND_STRuEu"aws4_request";
+finaluprivate staticuString ALGORITHW=U*AWS4-HMAC-SHA256*
+//
+*米*************：
+ま、その他
+***#********************************************#**************/
+/サーバ用ブロキシ名
+finalprivate static String SY.
+/文字コード
+_Proxy
+= XXXXX:
+Finaluprivate.staticustring UTF_8
+=U"UTF-87:0
+／返却値
+Final private static String ERR_OK
+= "OK* ;
+final privateustatic String ERR_NG
+ロリ
+*NG*
+いも
+***************************************************************
+* sigv4（APIを実行するための認証）を使用した署名付きリクエストを作成する。
+*本番環境/テスト環境の切り分けは|iblにある「commonByEnwironment.jar」で行う。
+*
+* Coaran-
+i son
+リクエストバラムに使用する」sonデーター
+* Creturn output
+レスポンスのJSONデータ
+****************************木**********米******米米*****ま井米井ま米*米*＊*・
+publicstatic.String doShome/(String.son)throos I0Exception.NoBuchAleorithmException.fa
+String output = neo Stringll;‹
+、*
+＊タスク1.名バージョン4の正規リクエストを作成する・
+k_nttpst//doos.aws.amazon.com/ja_jp/general/latest/er/sisv4-create-canonioal-request.html
+SimpleDateFormatuxAazDateForbatteru=unew SimpleDateFormat（yyyyMMdd'T'HHmnss'Z'7）：
+XAmzDateFormatter setTimeZone(TimeZone get TimeZone 'UTO"I:
+String nozlate = xAnzDateFormatter-formatinee Datel'i-trind:
+// 0loudSearchのHOST名（URLからhttps抜いただけの値）
+String hostu= SEARCH_LALBDA_HOST:
+StringurequestPayloadu=_DisestUtils.sha256Hex(json) :«
+Strins hileRequestlethod =
+POST":*
+Strine canonicalUri= *y*.
+Strina signedHeaders = "content-type:host ix-amz-date;a
+String canonica/QueryString=.
+Strinzucontentlype =
+appligation/ ison":
+Strine canonicalleaders = content-type:"
+tucontent Typeut"·nhost:" tuhostutu*·nx-amz-date:"utuxAmzDate:»
+StringucanonicalRequest.=.
+httpRequest Methadut #n*ute
+لم +
+canonicalluerystring +
+“¥n”+心
+CananicalHeadarsul+
+'¥n
+signedHeaders + '·n*
+四士人
+request Paxtoad:-
+Strins hashedCanonicalRequest = DizestUtils.sha256Hex(canonical Request) :
+/*
+*タスク2、署名バージョン4の署名文字列を作成する・
+*https://docs.avs.amazon.com/ja_jp/senoral/lateot/ar/sisv4-create-string=to=sign.html=
+SimpleDat eFornatudateFormatusunerusimpleDateFormat （"yyyyMHdd"）：！
+dateFormat set TimeZone (TimeZone getTineZone (*UTO*);*
+StringodateusudateFormat.format/nes DateJ.trinza
+String resionU REGION;«
+String serviceu= SERVICE_LAUBDA;
+Strinz endStruEND_STR:
+String algorithau=uALGORIT ;
+Etring credentialScope.zudate+*/"uturesion+uf+.sorvioo.+a
+String strinaTaSignu=valsorithmutu"·n"
+StrinestrinsToSienu=aleorithmut **n*
++ xAmDate + "En*
++uaredentialScopeu+"n”
++UhashedCanonical Request; «
+*タスク3.署名バージョン4の署名を計算する。
+*https:@docs.aws.amazon.com/ja_jp/general/latest/gr/sizy4-calculate-signature.html
+/1Cloudiearch実行ユーザ
+String accesskey = SEARCH_LAMBDA_ACCESSKEY:-
+Stringusecret Keyu= SEARCH_LAWBDA_SECRETKEY:*
+try le
+*Javaを使用して署名キーを取得
+*https://docs.aws.amazon.com/ja_jp/general/latest/gr/sienature-y4-examples.htm/#signature-v4-examples-java
+byte lukeyu=ugetSignaturekey(secretkey.udate.uregion.service):«
+Stringusignature = String.valueOf (Hex.encodeHex(haacSHA256(stringToSien,ukey)JJ;*
+/*
+＊タスク4.HTTPリクエストに署名を追加する
+*https://docs.aws-amazon.com/ja_jp/seneral/latest/er/sigv4-add-siznature-to-request.html
+* Authorization: algorithm Credential=access key ID/credential scope, SienedHeaders=SienedHeaders, Signature=signature:
+StringauthorizatIom=elgarithm+*Orodential=*+scoesskey x"f"&credent lalScongu
+SignedHeaders=*
+tusignedHeaderst
+* Sienature="+ sienature;-
+//マテリース
+HttpURLConnectionuur/connuou=null:
+Out put Stream
+PrintSt reamuuu
+BufferedReade ruut
+//CloudSearch実行用のLambdaOURL
+URLuurItespuFuner URL(SEARCH_LAMBDA_URL):=
+// 接続用HttpURLConnectionオブジェク上作成
+//.［iFIgx環境への接続にProxy設定が必要」
+Proxy proxyusuney Proxy (Proxy.Type.HTTP, new InetSocketAddress (SY_Proxy. 8080)) :% urlconnu=u(HttpURLConnection)ur|temp.openConnection(proxy):-
+urIconn.set Request Method ("POST") ;
+/ハリクエストメンットの設定
+urlconn.set InstanceFollowRedi rects(false);
+/リダイレクトの自動許可設定
+urleonn.set DoOut put (true) ;
+//リクエストのボディ送信の許可設定 POSTの場合は必須trいに
+uriconn.setDoInput (true);
+// レスポンスのボディ受店の許可設定
+//リクエスト形式をJsonに指定
+ur conn-set RequestProperty ("content-type"
+, "application/json");
+ur leorn-set Request Property ("host
+,Uhost ) ; ك
+/リクエスト形式をJsonに指定
+urIconn. set Request Property (* ur leonn-set Request Property ("host
+content-type"
+,"applicat fon/ison") ;
+Uhost);
+ur leonn set Request Property (*x-amz-date xAmzDatel:
+ur Iconn.set Request Property ("Authorization
+authorization) ;4
+urloonn-connect ();d
+//POSTバラメーターの設定
+05u=urlconn.getOutputStream0):
+psuuner PrintStream (os);*
+ps-print (ison) ;a
+ps-closell;«
+/ハレスポンスのステータスを取得
+intustatusu=ourlconn. get ResponseCode );J
+ifu(statusu==uHttpURLConnection.HTTP_OKJu[•
+bro=uneroBufferedReader (nes InputStreamReader (ur|conn-get InputSt ream), JUTF_8)) ;
+//結果を1行ずつ読み込む
+thile(truelut
+Stringul ineuzubr.readLine();4
+ifufolineu==nullul
+break;-
+nutputu+=uline;d
+luelseum
+// CloudSearchエラーとして処理
+outputu= ERR_NG:+
+l catch (Exception elet a.print StackTrace (;
+throrner IOException@:
+returnoutput i
+「******************************米*米*米****
+* sigy4の署名作成のためにSHA256を実行
+#＊
+*
+data
+* Creturn
+key byte
+***#****************
+publicustaticobytell hmacSHA256 (Stringudata. byte[lokex)uthrows Exceptionu la
+Stringualzorithmu=
+"HmacSHA256":4
+Macumacu= Mac. get Instance(aleorithm): mac.init (neroSecret KeySpec (key.ualcorithm;
+returnumac.doFinal (data.getBytes (UTF_8));«
+/******************************
+* sigv4の署名キーの作成
+***＊**
+
+/*************************************************：
+*usigv4の署名作成のためにSHA256を実行
+*
+*米米术米。
+data
+* Срагав
+key
+*Preturn byte
+public static byte［］ hmacSHA256 （String data,ibytel］ key）throus Except ionuta
+String algorith mUal"HnacSHA256"3.
+Macumacu= Mac.get Instance (alzorithm):
+mac.init (new SecretKeySpec (key,ualgorithm)) ;
+return mac.doFinal (data.get Bytes (UTF_8));4
+Eo shinda
+*******************************米***：
+*sigv4の署名キーの作成
+**************、
+* @рагав
+data
+* Срагав
+dateSt amp
+* @param
+regionName
+* Cparan
+serviceName
+* Creturn
+byte
+＊****************************米**************米*米*****************！
+publicustaticubytellugetSignaturekey(Stringukey,StringudateStamp,StringuregionName,String serviceName)
+thrors Exceptionut
+byte[lokSecretu=u("AWS4"u+ukey).getBytes(UTF_8);
+byte[lukDateu=uhmacSHA256 (dateStamp,ukSecret) ;
+bytellukRegionu=0hnacSHA256 (regionName,UkDate) ;
+bytellUkservice =uhmacShA256(serviceName.ukkegion);4
+byte[lukSigningu=uhmacSHA256("
+aws4 request"
+,ukService) :
+returnukSigning;a
+
+
+
+
